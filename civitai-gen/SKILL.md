@@ -3,7 +3,7 @@ name: civitai-gen
 description: Generate images, videos, audio, and more using Civitai's orchestration API. Use when the user wants text-to-image, video generation (11+ engines), text-to-speech, music, transcription, bulk batches, experiment sweeps, or buzz cost estimation. Not for browsing or searching Civitai models (use the Civitai MCP server).
 license: MIT
 compatibility: Requires Node.js 18+ (native fetch) and a CIVITAI_API_KEY. Network access required. ffmpeg optional (audio post-processing only).
-metadata: { "author": "Civitai", "version": "1.0.1", "homepage": "https://github.com/civitai/civitai-gen-skill" }
+metadata: { "author": "Civitai", "version": "1.0.2", "homepage": "https://github.com/civitai/civitai-gen-skill" }
 ---
 
 # civitai-gen
@@ -72,6 +72,10 @@ Read [`docs/engines.md`](docs/engines.md) to pick the right generator. The key s
 
 If the Civitai MCP isn't connected, add it (browse tools need no API key):
 `claude mcp add --transport http civitai https://mcp.civitai.com/mcp`
+
+**Can't add MCP config in your runtime?** Pull the zero-dep CLI (Node 18+) and call tools over the shell instead:
+`curl -fsSL https://mcp.civitai.com/cli -o mcp-cli.mjs`
+`node mcp-cli.mjs call search_models '{"query":"anime portrait","type":"Checkpoint","supportsGeneration":true,"baseModel":"SDXL 1.0"}'`
 
 ```text
 # Call these Civitai MCP tools directly (they return AIR URNs ready for --model / --resources):

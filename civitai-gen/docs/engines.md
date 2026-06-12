@@ -22,7 +22,7 @@ Image generation splits into two paths. Getting this wrong is the #1 mistake.
 
 ### Picking checkpoints & LoRAs (open-weight path)
 
-**Use the Civitai MCP server** — it owns model discovery. Do not search inside civitai-gen. If it's not connected: `claude mcp add --transport http civitai https://mcp.civitai.com/mcp` (browse tools need no API key).
+**Use the Civitai MCP server** — it owns model discovery. Do not search inside civitai-gen. If it's not connected: `claude mcp add --transport http civitai https://mcp.civitai.com/mcp` (browse tools need no API key). No way to edit MCP config in your runtime? Pull the CLI: `curl -fsSL https://mcp.civitai.com/cli -o mcp-cli.mjs` then `node mcp-cli.mjs call search_models '{...}'`.
 
 ```text
 # Call these Civitai MCP tools (hosted at https://mcp.civitai.com/mcp):
