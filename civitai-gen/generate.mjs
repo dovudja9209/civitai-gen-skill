@@ -800,6 +800,13 @@ async function cmdDownload(opts) {
       videos: saved.filter((p) => p.endsWith('.mp4')),
       audio: saved.filter((p) => p.endsWith('.wav') || p.endsWith('.mp3') || p.endsWith('.ogg') || p.endsWith('.flac')),
       transcriptions: transcriptionResults,
+      // Remote CDN download URLs, parallel to the local paths above. Pass one to
+      // the Civitai MCP create_post tool's images[].url. See docs/posting.md.
+      remoteUrls: downloads.map((d) => ({
+        url: d.url,
+        type: d.mediaType,
+        path: d.destPath,
+      })),
       failed,
       total: downloads.length,
     })
@@ -1157,6 +1164,15 @@ async function cmdWait(opts) {
     videos: savedPaths.filter((p) => p.endsWith('.mp4')),
     audio: savedPaths.filter((p) => p.endsWith('.wav') || p.endsWith('.mp3') || p.endsWith('.ogg') || p.endsWith('.flac')),
     transcriptions: transcriptionResults,
+    // Remote CDN download URLs for each media item (parallel to the local paths
+    // above). These are real https URLs on Civitai's CDN — hand one straight to
+    // the Civitai MCP `create_post` tool's images[].url to post without any
+    // manual upload. See docs/posting.md.
+    remoteUrls: downloads.map((d) => ({
+      url: d.url,
+      type: d.mediaType,
+      path: d.destPath,
+    })),
     duration: durationSec,
     cost: finalWorkflow.cost || null,
   };

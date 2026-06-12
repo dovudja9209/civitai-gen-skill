@@ -3,7 +3,7 @@ name: civitai-gen
 description: Generate images, videos, audio, and more using Civitai's orchestration API. Use when the user wants text-to-image, video generation (11+ engines), text-to-speech, music, transcription, bulk batches, experiment sweeps, or buzz cost estimation. Not for browsing or searching Civitai models (use the Civitai MCP server).
 license: MIT
 compatibility: Requires Node.js 18+ (native fetch) and a CIVITAI_API_KEY. Network access required. ffmpeg optional (audio post-processing only).
-metadata: { "author": "Civitai", "version": "1.0.2", "homepage": "https://github.com/civitai/civitai-gen-skill" }
+metadata: { "author": "Civitai", "version": "1.0.3", "homepage": "https://github.com/civitai/civitai-gen-skill" }
 ---
 
 # civitai-gen
@@ -59,6 +59,21 @@ node generate.mjs cost --engine veo3 --prompt "A robot" --duration 8
 node experiment.mjs --spec experiment.json -o ./out
 ```
 
+## Posting What You Generate
+
+To publish a generated image (or video/audio) as a Civitai post, hand its **remote download URL** to the Civitai MCP `create_post` tool. The `generate` output gives you that URL in `remoteUrls[].url` — do NOT base64 the local file or call `upload_image`, just pass the URL.
+
+```bash
+# 1. Generate — the JSON includes remoteUrls[].url (a real CDN https URL)
+node generate.mjs wait --prompt "a red apple" -n 1 -o ./out
+
+# 2. Post it (pull mcp-cli.mjs if you have no MCP client; CIVITAI_API_KEY required)
+node mcp-cli.mjs call create_post '{"title":"My apple","images":[{"url":"<remoteUrls[0].url>"}],"publish":true}'
+# -> Post created. ID: <id>  ->  https://civitai.com/posts/<id>
+```
+
+Full walkthrough (URL extraction, MCP setup, params, gotchas): [`docs/posting.md`](docs/posting.md).
+
 ## Choosing an Engine & Model
 
 Read [`docs/engines.md`](docs/engines.md) to pick the right generator. The key split:
@@ -96,6 +111,7 @@ For detailed parameters, read the relevant doc:
 - **Music**: Read [`docs/music.md`](docs/music.md) — ACE Step 1.5, lyrics, duration.
 - **Transcription**: Read [`docs/transcription.md`](docs/transcription.md) — ASR, timestamps, language hints.
 - **Experiments**: Read `experiment.mjs --help` — wildcards, parameter sweeps, naming.
+- **Posting**: Read [`docs/posting.md`](docs/posting.md) — publish a generated image as a Civitai post via the MCP `create_post` tool using the `remoteUrls[].url` from the generate output.
 
 ## Workflow Lifecycle
 

@@ -33,6 +33,8 @@ get_model_version { ids: [<versionId>] }   # AIR URN + trigger words
 
 **Compatibility rule:** a LoRA's base model must match the checkpoint's ecosystem. SDXL LoRA ≠ Flux checkpoint.
 
+> The same Civitai MCP also posts what you generate: pass the generate output's `remoteUrls[].url` to its `create_post` tool. See [posting.md](posting.md).
+
 ---
 
 ## Image — which engine, and why
